@@ -11,10 +11,11 @@ export type RegisterFormData = {
   password: string;
   confirmPassword: string;
 };
+
 const Register = () => {
   const queryClient = useQueryClient();
-  const { showToast } = useAppContext();
   const navigate = useNavigate();
+  const { showToast } = useAppContext();
 
   const {
     register,
@@ -22,13 +23,11 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormData>();
-  
+
   const mutation = useMutation(apiClient.register, {
     onSuccess: async () => {
-      showToast({ message: "Registration Successful", type: "SUCCESS" });
-
+      showToast({ message: "Registration Success!", type: "SUCCESS" });
       await queryClient.invalidateQueries("validateToken");
-
       navigate("/");
     },
     onError: (error: Error) => {
@@ -42,15 +41,13 @@ const Register = () => {
 
   return (
     <form className="flex flex-col gap-5" onSubmit={onSubmit}>
-      <h2 className="text-3xl font-bold">Create an account</h2>
+      <h2 className="text-3xl font-bold">Create an Account</h2>
       <div className="flex flex-col md:flex-row gap-5">
         <label className="text-gray-700 text-sm font-bold flex-1">
           First Name
           <input
             className="border rounded w-full py-1 px-2 font-normal"
-            {...register("firstName", {
-              required: "This field is required",
-            })}
+            {...register("firstName", { required: "This field is required" })}
           ></input>
           {errors.firstName && (
             <span className="text-red-500">{errors.firstName.message}</span>
@@ -60,9 +57,7 @@ const Register = () => {
           Last Name
           <input
             className="border rounded w-full py-1 px-2 font-normal"
-            {...register("lastName", {
-              required: "This field is required",
-            })}
+            {...register("lastName", { required: "This field is required" })}
           ></input>
           {errors.lastName && (
             <span className="text-red-500">{errors.lastName.message}</span>
@@ -74,9 +69,7 @@ const Register = () => {
         <input
           type="email"
           className="border rounded w-full py-1 px-2 font-normal"
-          {...register("email", {
-            required: "This field is required",
-          })}
+          {...register("email", { required: "This field is required" })}
         ></input>
         {errors.email && (
           <span className="text-red-500">{errors.email.message}</span>
@@ -91,7 +84,7 @@ const Register = () => {
             required: "This field is required",
             minLength: {
               value: 6,
-              message: "Password shold be at least six characters long ",
+              message: "Password must be at least 6 characters",
             },
           })}
         ></input>
@@ -109,7 +102,7 @@ const Register = () => {
               if (!val) {
                 return "This field is required";
               } else if (watch("password") !== val) {
-                return "The passwords do not match";
+                return "Your passwords do no match";
               }
             },
           })}

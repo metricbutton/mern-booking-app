@@ -10,9 +10,9 @@ export type SignInFormData = {
 };
 
 const SignIn = () => {
-  const queryClient = useQueryClient();
   const { showToast } = useAppContext();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -22,7 +22,7 @@ const SignIn = () => {
 
   const mutation = useMutation(apiClient.signIn, {
     onSuccess: async () => {
-      showToast({ message: "Sign in successfull", type: "SUCCESS" });
+      showToast({ message: "Sign in Successful!", type: "SUCCESS" });
       await queryClient.invalidateQueries("validateToken");
       navigate("/");
     },
@@ -43,9 +43,7 @@ const SignIn = () => {
         <input
           type="email"
           className="border rounded w-full py-1 px-2 font-normal"
-          {...register("email", {
-            required: "This field is required",
-          })}
+          {...register("email", { required: "This field is required" })}
         ></input>
         {errors.email && (
           <span className="text-red-500">{errors.email.message}</span>
@@ -60,7 +58,7 @@ const SignIn = () => {
             required: "This field is required",
             minLength: {
               value: 6,
-              message: "Password shold be at least six characters long ",
+              message: "Password must be at least 6 characters",
             },
           })}
         ></input>
@@ -68,14 +66,6 @@ const SignIn = () => {
           <span className="text-red-500">{errors.password.message}</span>
         )}
       </label>
-      {/* <span>
-        <button
-          type="submit"
-          className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl"
-        >
-          Login
-        </button>
-      </span> */}
       <span className="flex items-center justify-between">
         <span className="text-sm">
           Not Registered?{" "}
