@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is a comprehensive hotel booking application that offers a seamless experience for users. It includes the following key features:
+A comprehensive hotel booking application that offers a seamless experience for users. It includes the following key features:
 
 1. **User Authentication**
    - Secure login and registration using HTTP cookies and JWT.
